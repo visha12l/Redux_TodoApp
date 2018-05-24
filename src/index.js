@@ -11,4 +11,5 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <AddTodo />
   </Provider>
-  , document.querySelector('.container'));
+  , document.querySelector('.container'),
+);
