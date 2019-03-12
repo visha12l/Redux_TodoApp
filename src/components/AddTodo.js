@@ -1,13 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addTodo } from '../actions';
 
-const _ = require('underscore');
-
 class AddTodo extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.textInput = React.createRef();
     this.addTodo = this.addTodo.bind(this);
   }
@@ -32,9 +28,9 @@ class AddTodo extends React.Component {
           </button>
         </form>
         <ul>
-          {todos && todos.length
+          { todos.length
              ? _.map(todos, (todo, key) => <li key={key}>{todo.text}</li>)
-             : null
+             : <p>no items added.</p>
            }
         </ul>
       </div>
@@ -44,12 +40,12 @@ class AddTodo extends React.Component {
 
 AddTodo.defaultProps = {
   todos: [],
-  addTodo: undefined,
+  addTodo: () => { },
 };
 
 AddTodo.propTypes = {
   addTodo: PropTypes.func,
-  todos: PropTypes.arrayOf,
+  todos: PropTypes.arrayOf(PropTypes.object),
 };
 
 function mapStateToProps(state) {
