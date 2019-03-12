@@ -1,4 +1,4 @@
-import { ADD_TODO } from '../actions'
+import { ADD_TODO } from '../actions';
 
 const ToDoItem = (state = [], action) => {
   switch (action.type) {
@@ -6,13 +6,12 @@ const ToDoItem = (state = [], action) => {
       return [
         ...state,
         {
-          id: action.id,
-          text: action.text
-        }
-      ]
+          text: action.text,
+        },
+      ];
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default ToDoItem
+export default ToDoItem;
