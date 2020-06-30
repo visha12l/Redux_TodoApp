@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import { addTodo } from '../actions';
+import { connect } from "react-redux";
+import { addTodo } from "../actions";
 
 class AddTodo extends React.Component {
   constructor(props) {
@@ -13,25 +13,29 @@ class AddTodo extends React.Component {
     const { current } = this.textInput;
     if (current.value) {
       this.props.addTodo(current.value);
-      current.value = '';
+      current.value = "";
     }
   }
 
   render() {
     const { todos } = this.props;
     return (
-      <div>
+      <div className="wrap">
+        <h1>React-Redux TODO App</h1>
         <form onSubmit={this.addTodo}>
-          <input ref={this.textInput} />
-          <button type="submit">
-            Add Todo
-          </button>
+          <input placeholder="your item" ref={this.textInput} />
+          <button type="submit">Add Item</button>
         </form>
-        <ul>
-          { todos.length
-             ? _.map(todos, (todo, key) => <li key={key}>{todo.text}</li>)
-             : <p>no items added.</p>
-           }
+        <ul className="toDolist">
+          {todos.length ? (
+            _.map(todos, (todo, key) => (
+              <li className="toDolistItem" key={key}>
+                {key + 1}){todo.text}
+              </li>
+            ))
+          ) : (
+            <p>no items added.</p>
+          )}
         </ul>
       </div>
     );
@@ -40,12 +44,12 @@ class AddTodo extends React.Component {
 
 AddTodo.defaultProps = {
   todos: [],
-  addTodo: () => { },
+  addTodo: () => {}
 };
 
 AddTodo.propTypes = {
   addTodo: PropTypes.func,
-  todos: PropTypes.arrayOf(PropTypes.object),
+  todos: PropTypes.arrayOf(PropTypes.object)
 };
 
 function mapStateToProps(state) {
