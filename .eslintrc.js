@@ -4,6 +4,7 @@ module.exports = {
         "browser": true,
     },
     "rules": {
+      "eslint quotes": ["1", "single"]*
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     },
     "globals": {
