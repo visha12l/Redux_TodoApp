@@ -1,56 +1,20 @@
 import { connect } from "react-redux";
 import { addTodo, editItem, deleteItem, setEdit } from "../actions";
 import Input from "./Input";
+import AddForm from "./AddForm";
 class AddTodo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      inputValue: ""
-    };
     this.updatedInput = React.createRef();
   }
 
-  addTodo = e => {
-    e.preventDefault();
-    const { inputValue } = this.state;
-    if (inputValue) {
-      this.props.addTodo(inputValue);
-      this.setState({ inputValue: "" });
-    }
-  };
-
-  editItem = key => {
-    // action dipatcher on submit event
-    const updatedItem = {
-      key,
-      text: this.updatedInput.current.value
-    };
-    this.props.editItem(updatedItem);
-    this.props.setEdit();
-  };
-
   render() {
-    const { todos } = this.props;
-    const { inputValue } = this.state;
+    const { todos, editItem, setEdit, deleteItem } = this.props;
     return (
       <div className="wrap">
         <h1>React-Redux TODO App</h1>
         {/* create seperate component for this part */}
-        <form onSubmit={this.addTodo}>
-          <input
-            className="input"
-            placeholder="Enter your task"
-            onChange={e => {
-              this.setState({
-                inputValue: e.target.value
-              });
-            }}
-            value={inputValue}
-          />
-          <button className="button" type="submit">
-            Add Item
-          </button>
-        </form>
+        <AddForm addItem={value => this.props.addItem(value)} />
         <ul className="toDolist">
           {todos.length ? (
             _.map(todos, (todo, key) => (
@@ -60,7 +24,12 @@ class AddTodo extends React.Component {
                     <Input refs={this.updatedInput} value={todo.text} />
                     <button
                       className="button"
-                      onClick={() => this.editItem(key)}
+                      onClick={() =>
+                        editItem({
+                          key: key,
+                          text: this.updatedInput.current.value
+                        })
+                      }
                     >
                       submit
                     </button>
@@ -70,14 +39,11 @@ class AddTodo extends React.Component {
                     {key + 1}){todo.text}
                   </span>
                 )}
-                <button
-                  onClick={() => this.props.setEdit(key)}
-                  className="button editBtn"
-                >
+                <button onClick={() => setEdit(key)} className="button editBtn">
                   Edit
                 </button>
                 <button
-                  onClick={() => this.props.deleteItem(key)}
+                  onClick={() => deleteItem(key)}
                   className="button deleteBtn"
                 >
                   Delete
@@ -95,27 +61,40 @@ class AddTodo extends React.Component {
 
 AddTodo.defaultProps = {
   todos: [],
-  addTodo: () => {},
+  addItem: () => {},
   editItem: () => {},
   deleteItem: () => {},
   setEdit: () => {}
 };
 
 AddTodo.propTypes = {
-  addTodo: PropTypes.func,
+  addItem: PropTypes.func,
   editItem: PropTypes.func,
   deleteItem: PropTypes.func,
   setEdit: PropTypes.func,
   todos: PropTypes.arrayOf(PropTypes.object)
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return { todos: state.ToDoItem };
-}
+};
 
-export default connect(mapStateToProps, {
-  addTodo,
-  editItem,
-  deleteItem,
-  setEdit
-})(AddTodo);
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: text => {
+      dispatch(addTodo(text));
+    },
+    editItem: updatedItem => {
+      dispatch(editItem(updatedItem));
+      dispatch(setEdit());
+    },
+    deleteItem: key => {
+      dispatch(deleteItem(key));
+    },
+    setEdit: key => {
+      dispatch(setEdit(key));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);
