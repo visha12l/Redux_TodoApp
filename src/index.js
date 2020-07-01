@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./stylesheet/index.css";
+import "./stylesheet/reset.css";
+import "./stylesheet/style.css";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import AddTodo from "./components/AddTodo";
