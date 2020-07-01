@@ -1,23 +1,15 @@
-class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: this.props.value
-    };
-  }
-  render() {
-    return (
-      <input
-        className="input"
-        ref={this.props.refs}
-        value={this.state.inputValue}
-        onChange={e => {
-          this.setState({
-            inputValue: e.target.value
-          });
-        }}
-      />
-    );
-  }
-}
+import React, { useState } from "react";
+
+const Input = ({ refs, value }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  return (
+    <input
+      className="input"
+      ref={refs}
+      value={inputValue}
+      onChange={e => setInputValue(e.target.value)}
+    />
+  );
+};
 export default Input;

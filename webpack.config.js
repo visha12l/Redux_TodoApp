@@ -9,13 +9,20 @@ module.exports = {
   },
   devtool: "inline-source-map",
   module: {
-    loaders: [
+    rules: [
       {
-        exclude: /node_modules/,
-        loader: "babel",
-        query: {
-          presets: ["react", "es2015", "stage-1"]
-        }
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.jsx$/,
+        loader: "babel-loader",
+        exclude: /node_modules/
       }
     ]
   },
@@ -27,7 +34,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ["", ".js", ".jsx"]
+    extensions: ["*", ".js", ".jsx", ".css"]
   },
   devServer: {
     historyApiFallback: true,
