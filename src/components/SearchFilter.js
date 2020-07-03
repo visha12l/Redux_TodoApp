@@ -1,14 +1,8 @@
 import React from "react";
 import Select from "react-select";
+import { CITY_NAMES } from "../constants/default";
 
-const cityNames = [
-  { value: "Mumbai (BOM)", label: "Mumbai (BOM)" },
-  { value: "Delhi (DEL)", label: "Delhi (DEL)" },
-  { value: "Bengaluru (BLR)", label: "Bengaluru (BLR)" },
-  { value: "Pune (PNQ)", label: "Pune (PNQ)" }
-];
-
-const SearchFilter = ({ flightType, handleSelectChange }) => {
+const SearchFilter = ({ flightType, handleSelectChange, excludedCity }) => {
   return (
     <Select
       placeholder={`Enter ${
@@ -20,10 +14,9 @@ const SearchFilter = ({ flightType, handleSelectChange }) => {
       }
       components={{
         IndicatorSeparator: () => null,
-        // eslint-disable-next-line react/display-name
         DropdownIndicator: () => null
       }}
-      options={cityNames}
+      options={CITY_NAMES.filter(city => city.value !== excludedCity)}
     />
   );
 };

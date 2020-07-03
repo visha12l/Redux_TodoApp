@@ -3,27 +3,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // CSS Modules, react-datepicker-cssmodules.css
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { convertDate } from "../utils/utils";
 
 const DatePickerInput = ({ flightType, startDate, handleDateChange }) => {
   const datepicker = useRef();
-
-  const parsedDate = startDate => {
-    if (startDate) {
-      const dateString = startDate.split("/");
-      const year = dateString[0];
-      const month = dateString[1];
-      const day = dateString[2];
-      const date = new Date(year, month - 1, day);
-      return date;
-    }
-    return null;
-  };
 
   return (
     <div className="datePickerWrapper">
       <DatePicker
         utcOffset={0}
-        selected={parsedDate(startDate)}
+        selected={convertDate(startDate)}
         onChange={date => handleDateChange(date, flightType)}
         ref={datepicker}
         minDate={new Date()}

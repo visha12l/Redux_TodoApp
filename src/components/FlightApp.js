@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../stylesheet/flight.css";
-import { Data, defaultUserChoice } from "../constants/default";
+import { Data, DEFAULT_USER_STATE } from "../constants/default";
 import MainFlightData from "./MainFlightData";
-import { getFlightData } from "../utils/utils";
+import { getFlightData, parseDate } from "../utils/utils";
 import Tab from "./Tab";
 import SearchFilter from "./SearchFilter";
 import CustomSelect from "./CustomSelect";
@@ -15,13 +15,14 @@ import DatePickerInput from "./DatePickerInput";
 // price should be multiplied by number of passengers defaults to 1
 // test for all possible routes
 // make app responsive
+//
+// need one state to preserve initial data write useEffect to fetch data from API
 
-// need one state to preserve initial data
 const FlightApp = () => {
   const [apiData, setApiData] = useState(Data);
   const [flightData, setFlightData] = useState(Data);
   const [returnFlightData, setReturnFlightData] = useState([]);
-  const [userInput, setUserInput] = useState(defaultUserChoice);
+  const [userInput, setUserInput] = useState(DEFAULT_USER_STATE);
   const [showFlightList, setFlightList] = useState(false);
 
   const {
@@ -67,11 +68,8 @@ const FlightApp = () => {
   };
 
   const handleDateChange = (date, flightType) => {
-    let formattedDate = `${date.getFullYear()}/${
-      date.getMonth() + 1
-    }/0${date.getDate()}`;
     const keyName = flightType === "oneWay" ? "journeyDate" : "returnDate";
-    setUserInput({ ...userInput, [keyName]: formattedDate });
+    setUserInput({ ...userInput, [keyName]: parseDate(date) });
   };
 
   const handlePassengerChange = selectedOption => {
@@ -81,8 +79,15 @@ const FlightApp = () => {
   return (
     <div className="itemList">
       <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
-      <SearchFilter handleSelectChange={handleCityChange} flightType="oneWay" />
-      <SearchFilter handleSelectChange={handleCityChange} />
+      <SearchFilter
+        excludedCity={destinationCity}
+        handleSelectChange={handleCityChange}
+        flightType="oneWay"
+      />
+      <SearchFilter
+        excludedCity={originCity}
+        handleSelectChange={handleCityChange}
+      />
       <DatePickerInput
         flightType="oneWay"
         startDate={journeyDate}

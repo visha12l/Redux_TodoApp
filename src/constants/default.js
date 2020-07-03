@@ -341,11 +341,18 @@ export const Data = [
   }
 ];
 
-export const defaultUserChoice = {
-  originCity: "Delhi (DEL)",
-  destinationCity: "Pune (PNQ)",
+export const DEFAULT_USER_STATE = {
+  originCity: "",
+  destinationCity: "",
   journeyDate: null,
   returnDate: null,
   numOfPassenger: 1,
   isOneWayFlight: true
 };
+
+export const CITY_NAMES = [
+  { value: "Mumbai (BOM)", label: "Mumbai (BOM)" },
+  { value: "Delhi (DEL)", label: "Delhi (DEL)" },
+  { value: "Bengaluru (BLR)", label: "Bengaluru (BLR)" },
+  { value: "Pune (PNQ)", label: "Pune (PNQ)" }
+];
