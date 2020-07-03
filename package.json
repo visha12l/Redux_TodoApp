@@ -41,11 +41,14 @@
     "lodash": "^3.10.1",
     "prop-types": "^15.6.1",
     "react": "16.8.0",
+    "react-datepicker": "^3.0.0",
     "react-dom": "16.8.0",
     "react-redux": "5.0.7",
     "react-router": "^2.0.1",
+    "react-select": "^3.1.0",
     "redux": "4.0.0",
     "style-loader": "^1.2.1",
-    "underscore": "^1.9.0"
+    "underscore": "^1.9.0",
+    "yarn": "^1.22.4"
   }
 }
