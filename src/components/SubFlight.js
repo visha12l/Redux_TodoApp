@@ -1,4 +1,7 @@
 import React from "react";
+import { getFlightDuration } from "../utils/utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlane, faSms } from "@fortawesome/free-solid-svg-icons";
 
 const SubFlight = ({ subFlight }) => {
   const {
@@ -12,9 +15,7 @@ const SubFlight = ({ subFlight }) => {
   return (
     <li>
       <div className="imgWrapper">
-        <i className="fa fa-plane planeIcon" aria-hidden="true">
-          XX
-        </i>
+        <FontAwesomeIcon icon={faSms} />
       </div>
       <div className="listInner">
         <h2>{name}</h2>
@@ -29,7 +30,7 @@ const SubFlight = ({ subFlight }) => {
         <span>{destination}</span>
       </div>
       <div className="listInner">
-        <h2>02h 00m</h2>
+        <h2>{getFlightDuration(departureTime, arrivalTime)}</h2>
       </div>
     </li>
   );

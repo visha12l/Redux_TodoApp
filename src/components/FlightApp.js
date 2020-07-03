@@ -40,18 +40,26 @@ const FlightApp = () => {
     return response.json();
   };
 
+  // useEffect(() => {
+  //   fetchJson("https://tw-frontenders.firebaseio.com/advFlightSearch.json")
+  //     .then(response => {
+  //       const uniqueCity = [...new Set(response.map(item => item.origin))].map(
+  //         item => {
+  //           return { value: item, label: item };
+  //         }
+  //       );
+  //       setCityData(uniqueCity);
+  //       setApiData(response);
+  //     })
+  //     .catch(error => console.log(error));
+  // }, []);
+
   useEffect(() => {
-    fetchJson("https://tw-frontenders.firebaseio.com/advFlightSearch.json")
-      .then(response => {
-        const uniqueCity = [...new Set(response.map(item => item.origin))].map(
-          item => {
-            return { value: item, label: item };
-          }
-        );
-        setCityData(uniqueCity);
-        setApiData(response);
-      })
-      .catch(error => console.log(error));
+    const uniqueCity = [...new Set(Data.map(item => item.origin))].map(item => {
+      return { value: item, label: item };
+    });
+    setCityData(uniqueCity);
+    setApiData(Data);
   }, []);
 
   const toggleSubFlight = (flightKey, data, isReturnFlight) => {
@@ -97,7 +105,8 @@ const FlightApp = () => {
   };
 
   return (
-    <div className="itemList">
+    <div className="userForm">
+      <h1>Flight Search App</h1>
       <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
       <SearchFilter
         cityData={cityData}
@@ -122,21 +131,30 @@ const FlightApp = () => {
         />
       )}
       <CustomSelect handleSelectChange={handlePassengerChange} />
-      <button onClick={searchFlights}>Search</button>
+      <button className="button blueBtn" onClick={searchFlights}>
+        Search
+      </button>
       {showFlightList && (
         <div>
-          <MainFlightData
-            numOfPassenger={numOfPassenger}
-            flightData={flightData}
-            toggleSubFlight={toggleSubFlight}
-          />
-          <p>Return Flight Data</p>
-          <MainFlightData
-            numOfPassenger={numOfPassenger}
-            isReturnFlight={!isOneWayFlight}
-            flightData={returnFlightData}
-            toggleSubFlight={toggleSubFlight}
-          />
+          {!!flightData.length && (
+            <MainFlightData
+              numOfPassenger={numOfPassenger}
+              flightData={flightData}
+              toggleSubFlight={toggleSubFlight}
+              origin={originCity}
+              destination={destinationCity}
+            />
+          )}
+          {!!returnFlightData.length && (
+            <MainFlightData
+              origin={destinationCity}
+              destination={originCity}
+              numOfPassenger={numOfPassenger}
+              isReturnFlight={!isOneWayFlight}
+              flightData={returnFlightData}
+              toggleSubFlight={toggleSubFlight}
+            />
+          )}
         </div>
       )}
     </div>

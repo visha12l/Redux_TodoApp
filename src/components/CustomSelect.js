@@ -3,6 +3,7 @@ import Select from "react-select";
 
 const CustomSelect = ({ handleSelectChange }) => {
   const [options, setOptions] = useState([]);
+
   useEffect(() => {
     const newOption = [];
     for (let i = 0; i < 10; i++) {
@@ -17,7 +18,6 @@ const CustomSelect = ({ handleSelectChange }) => {
       onChange={handleSelectChange}
       components={{
         IndicatorSeparator: () => null,
-        // eslint-disable-next-line react/display-name
         DropdownIndicator: () => null
       }}
       options={options}
