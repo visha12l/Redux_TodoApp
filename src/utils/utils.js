@@ -42,7 +42,7 @@ const parseDate = date => {
   let month = date.getMonth() + 1;
   month = month > 9 ? month : `0${month}`;
   let newDate = date.getDate();
-  newDate = newDate > 9 ? month : `0${newDate}`;
+  newDate = newDate > 9 ? newDate : `0${newDate}`;
   return `${date.getFullYear()}/${month}/${newDate}`;
 };
 

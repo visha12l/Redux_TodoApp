@@ -4,6 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 // CSS Modules, react-datepicker-cssmodules.css
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import { convertDate } from "../utils/utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 const DatePickerInput = ({ flightType, startDate, handleDateChange }) => {
   const datepicker = useRef();
@@ -24,11 +26,9 @@ const DatePickerInput = ({ flightType, startDate, handleDateChange }) => {
         showDisabledMonthNavigation
         popperPlacement="auto"
       />
-      <img
-        src="/images/icons/calendar.png"
-        className="calender btn"
-        alt="calendar"
+      <FontAwesomeIcon
         onClick={() => datepicker.current.setOpen(true)}
+        icon={faCalendar}
       />
     </div>
   );

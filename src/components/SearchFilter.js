@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Select from "react-select";
 import { CITY_NAMES } from "../constants/default";
 
-const SearchFilter = ({ flightType, handleSelectChange, excludedCity }) => {
+const SearchFilter = ({
+  cityData,
+  flightType,
+  handleSelectChange,
+  excludedCity
+}) => {
   return (
     <Select
       placeholder={`Enter ${
@@ -16,7 +21,7 @@ const SearchFilter = ({ flightType, handleSelectChange, excludedCity }) => {
         IndicatorSeparator: () => null,
         DropdownIndicator: () => null
       }}
-      options={CITY_NAMES.filter(city => city.value !== excludedCity)}
+      options={cityData.filter(city => city.value !== excludedCity)}
     />
   );
 };

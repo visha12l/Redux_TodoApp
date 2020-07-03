@@ -19,11 +19,12 @@ import DatePickerInput from "./DatePickerInput";
 // need one state to preserve initial data write useEffect to fetch data from API
 
 const FlightApp = () => {
-  const [apiData, setApiData] = useState(Data);
-  const [flightData, setFlightData] = useState(Data);
+  const [apiData, setApiData] = useState([]);
+  const [flightData, setFlightData] = useState([]);
   const [returnFlightData, setReturnFlightData] = useState([]);
   const [userInput, setUserInput] = useState(DEFAULT_USER_STATE);
   const [showFlightList, setFlightList] = useState(false);
+  const [cityData, setCityData] = useState([]);
 
   const {
     originCity,
@@ -33,6 +34,25 @@ const FlightApp = () => {
     numOfPassenger,
     isOneWayFlight
   } = userInput;
+
+  const fetchJson = async url => {
+    const response = await fetch(url);
+    return response.json();
+  };
+
+  useEffect(() => {
+    fetchJson("https://tw-frontenders.firebaseio.com/advFlightSearch.json")
+      .then(response => {
+        const uniqueCity = [...new Set(response.map(item => item.origin))].map(
+          item => {
+            return { value: item, label: item };
+          }
+        );
+        setCityData(uniqueCity);
+        setApiData(response);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   const toggleSubFlight = (flightKey, data, isReturnFlight) => {
     const newFlighData = data.map((item, key) => {
@@ -80,11 +100,13 @@ const FlightApp = () => {
     <div className="itemList">
       <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
       <SearchFilter
+        cityData={cityData}
         excludedCity={destinationCity}
         handleSelectChange={handleCityChange}
         flightType="oneWay"
       />
       <SearchFilter
+        cityData={cityData}
         excludedCity={originCity}
         handleSelectChange={handleCityChange}
       />
