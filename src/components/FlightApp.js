@@ -7,6 +7,7 @@ import Tab from "./Tab";
 import SearchFilter from "./SearchFilter";
 import CustomSelect from "./CustomSelect";
 import DatePickerInput from "./DatePickerInput";
+import { fetchFlightData } from "../services/flightService";
 // create left form with validation
 // TODO Calculate time difference
 // dont consider multiple airlines if time is less than 30 minutes
@@ -35,31 +36,14 @@ const FlightApp = () => {
     returnDateObj
   } = userInput;
 
-  const fetchJson = async url => {
-    const response = await fetch(url);
-    return response.json();
-  };
-
-  // useEffect(() => {
-  //   fetchJson("https://tw-frontenders.firebaseio.com/advFlightSearch.json")
-  //     .then(response => {
-  //       const uniqueCity = [...new Set(response.map(item => item.origin))].map(
-  //         item => {
-  //           return { value: item, label: item };
-  //         }
-  //       );
-  //       setCityData(uniqueCity);
-  //       setApiData(response);
-  //     })
-  //     .catch(error => console.log(error));
-  // }, []);
-
   useEffect(() => {
-    const uniqueCity = [...new Set(Data.map(item => item.origin))].map(item => {
-      return { value: item, label: item };
-    });
-    setCityData(uniqueCity);
-    setApiData(Data);
+    (async () => {
+      const flightResponse = await fetchFlightData();
+      if (flightResponse) {
+        setApiData(flightResponse.flight);
+        setCityData(flightResponse.uniqueCity);
+      }
+    })();
   }, []);
 
   const toggleSubFlight = (flightKey, data, isReturnFlight) => {
