@@ -346,16 +346,10 @@ export const DEFAULT_USER_STATE = {
   destinationCity: "",
   journeyDate: null,
   returnDate: null,
-  numOfPassenger: 1,
-  isOneWayFlight: true
+  numOfPassenger: "",
+  isOneWayFlight: true,
+  priceRange: { min: 0, max: 15000 }
 };
-
-export const CITY_NAMES = [
-  { value: "Mumbai (BOM)", label: "Mumbai (BOM)" },
-  { value: "Delhi (DEL)", label: "Delhi (DEL)" },
-  { value: "Bengaluru (BLR)", label: "Bengaluru (BLR)" },
-  { value: "Pune (PNQ)", label: "Pune (PNQ)" }
-];
 
 export const DAYS = [
   "Sunday",
@@ -381,3 +375,13 @@ export const MONTHS = [
   "November",
   "December"
 ];
+
+// customizable passenger limit
+export const PASSENGER_LIMIT = 20;
+
+const PASSENGER_DATA = [];
+for (let i = 0; i < PASSENGER_LIMIT; i++) {
+  PASSENGER_DATA.push({ value: i + 1, label: i + 1 });
+}
+
+export { PASSENGER_DATA };

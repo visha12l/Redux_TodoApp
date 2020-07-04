@@ -6,30 +6,37 @@ export const getTotalMinutes = timeString => {
   );
 };
 
-export const getFlightData = (
-  flightData,
-  originCity,
-  destinationCity,
-  userDate
-) => {
+export const getFlightData = (flightData, userIput, isReturnFlight) => {
+  const {
+    journeyDate,
+    numOfPassenger,
+    originCity,
+    destinationCity,
+    priceRange
+  } = userIput;
   // TODO make this function generic for return flight booking
+  let originCityName = isReturnFlight ? destinationCity : originCity;
+  let destinationCityName = isReturnFlight ? originCity : destinationCity;
   let directFlight = [];
   let originCityFlight = [];
   let destinationCityFlight = [];
 
   flightData.forEach(item => {
-    if (userDate === item.date) {
-      if (item.origin === originCity && item.destination === destinationCity) {
-        directFlight.push(item);
-      } else if (item.origin === originCity) {
+    if (journeyDate === item.date) {
+      if (
+        item.origin === originCityName &&
+        item.destination === destinationCityName
+      ) {
+        directFlight.push({ ...item, price: item.price * numOfPassenger });
+      } else if (item.origin === originCityName) {
         originCityFlight.push(item);
-      } else if (item.destination === destinationCity) {
+      } else if (item.destination === destinationCityName) {
         destinationCityFlight.push(item);
       }
     }
   });
 
-  let newFlights = [];
+  let multiplaFlight = [];
   for (let i = 0; i < originCityFlight.length; i++) {
     for (let j = 0; j < destinationCityFlight.length; j++) {
       if (originCityFlight[i].destination === destinationCityFlight[j].origin) {
@@ -38,13 +45,15 @@ export const getFlightData = (
           getTotalMinutes(originCityFlight[i].arrivalTime);
 
         if (layOverTime > 30) {
-          newFlights.push({
+          multiplaFlight.push({
             arrivalTime: destinationCityFlight[j].arrivalTime,
             date: originCityFlight[i].date,
             departureTime: originCityFlight[i].departureTime,
-            destination: destinationCity,
-            origin: originCity,
-            price: originCityFlight[i].price + destinationCityFlight[j].price,
+            destination: destinationCityName,
+            origin: originCityName,
+            price:
+              (originCityFlight[i].price + destinationCityFlight[j].price) *
+              numOfPassenger,
             isMultiLine: true,
             subFlightData: [originCityFlight[i], destinationCityFlight[j]],
             layOverTime
@@ -53,7 +62,11 @@ export const getFlightData = (
       }
     }
   }
-  return [...directFlight, ...newFlights];
+  return [...directFlight, ...multiplaFlight]
+    .filter(
+      item => priceRange.min <= item.price && item.price <= priceRange.max
+    )
+    .sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
 };
 
 /** utitlity function to convert date object into yyyy/mm/dd format */

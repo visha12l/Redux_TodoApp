@@ -1,29 +1,55 @@
 import React, { useState, useEffect } from "react";
 import "../stylesheet/flight.css";
-import { Data, DEFAULT_USER_STATE } from "../constants/default";
+import {
+  Data,
+  DEFAULT_USER_STATE,
+  DEFAULT_DUMMY_USER_STATE,
+  PASSENGER_DATA
+} from "../constants/default";
 import MainFlightData from "./MainFlightData";
 import { getFlightData, parseDate } from "../utils/utils";
 import Tab from "./Tab";
 import SearchFilter from "./SearchFilter";
 import CustomSelect from "./CustomSelect";
 import DatePickerInput from "./DatePickerInput";
+import PriceFilter from "./PriceFilter";
 import { fetchFlightData } from "../services/flightService";
-// create left form with validation
-// TODO Calculate time difference
-// dont consider multiple airlines if time is less than 30 minutes
-// Flight Header date Conversion info
-// Add price FIlter
+import LoadingOverlay from "react-loading-overlay";
+import GridLoader from "react-spinners/GridLoader";
+// CSS PART
+// use scss
 // make app responsive
-//
-// need one state to preserve initial data write useEffect to fetch data from API
+// check all colors and icons
+
+// create common Folder For common components
+// solve Eslint Warnings
+
+// create left form with validation
+// user Should not be able to select return date previous to current jouneny date
+// search button should be enabled after all validation are passed
+
+// add initial loader for application
+
+// show empty response messages
+
+// const CITY_NAMES = [
+//   { value: "Mumbai (BOM)", label: "Mumbai (BOM)" },
+//   { value: "Delhi (DEL)", label: "Delhi (DEL)" },
+//   { value: "Bengaluru (BLR)", label: "Bengaluru (BLR)" },
+//   { value: "Pune (PNQ)", label: "Pune (PNQ)" }
+// ];
 
 const FlightApp = () => {
   const [apiData, setApiData] = useState([]);
   const [flightData, setFlightData] = useState([]);
   const [returnFlightData, setReturnFlightData] = useState([]);
   const [userInput, setUserInput] = useState(DEFAULT_USER_STATE);
-  const [showFlightList, setFlightList] = useState(false);
+  const [showFlightList, setFlightList] = useState({
+    oneWay: false,
+    return: false
+  });
   const [cityData, setCityData] = useState([]);
+  const [showLoader, setLoader] = useState(false);
 
   const {
     originCity,
@@ -33,25 +59,29 @@ const FlightApp = () => {
     numOfPassenger,
     isOneWayFlight,
     journeyDateObj,
-    returnDateObj
+    returnDateObj,
+    priceRange
   } = userInput;
 
   useEffect(() => {
     (async () => {
+      setLoader(true);
       const flightResponse = await fetchFlightData();
       if (flightResponse) {
         setApiData(flightResponse.flight);
         setCityData(flightResponse.uniqueCity);
+        setLoader(false);
       }
     })();
   }, []);
 
   const toggleSubFlight = (flightKey, data, isReturnFlight) => {
     const newFlighData = data.map((item, key) => {
-      if (flightKey === key) {
-        item.showSubFlights = !item.showSubFlights;
-      }
-      return item;
+      return {
+        ...item,
+        showSubFlights:
+          flightKey === key ? !item.showFlightList : item.showFlightList
+      };
     });
     isReturnFlight
       ? setReturnFlightData(newFlighData)
@@ -59,15 +89,18 @@ const FlightApp = () => {
   };
 
   const searchFlights = () => {
-    setFlightData(
-      getFlightData(apiData, originCity, destinationCity, journeyDate)
-    );
+    setFlightData(getFlightData(apiData, userInput, false));
     if (!isOneWayFlight) {
-      setReturnFlightData(
-        getFlightData(apiData, destinationCity, originCity, returnDate)
-      );
+      setReturnFlightData(getFlightData(apiData, userInput, true));
     }
-    setFlightList(true);
+    setFlightList({
+      oneWay: true,
+      return: !isOneWayFlight && returnDate !== ""
+    });
+  };
+
+  const handlePriceChange = priceRange => {
+    setUserInput({ ...userInput, priceRange: priceRange });
   };
 
   const handleChangeTab = isOneWayFlight => {
@@ -94,60 +127,73 @@ const FlightApp = () => {
 
   return (
     <div className="userForm">
-      <h1>Flight Search App</h1>
-      <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
-      <SearchFilter
-        cityData={cityData}
-        excludedCity={destinationCity}
-        handleSelectChange={handleCityChange}
-        flightType="oneWay"
-      />
-      <SearchFilter
-        cityData={cityData}
-        excludedCity={originCity}
-        handleSelectChange={handleCityChange}
-      />
-      <DatePickerInput
-        flightType="oneWay"
-        startDate={journeyDateObj}
-        handleDateChange={handleDateChange}
-      />
-      {!isOneWayFlight && (
+      <LoadingOverlay
+        styles={{
+          overlay: base => ({
+            ...base,
+            background: "rgb(7, 176, 227)"
+          })
+        }}
+        active={showLoader}
+        spinner={<GridLoader />}
+      >
+        <h1>Flight Search App</h1>
+        <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
+        <SearchFilter
+          cityData={cityData}
+          excludedCity={destinationCity}
+          handleSelectChange={handleCityChange}
+          flightType="oneWay"
+        />
+        <SearchFilter
+          cityData={cityData}
+          excludedCity={originCity}
+          handleSelectChange={handleCityChange}
+        />
         <DatePickerInput
-          minDate={journeyDateObj}
-          startDate={returnDateObj}
+          flightType="oneWay"
+          startDate={journeyDateObj}
           handleDateChange={handleDateChange}
         />
-      )}
-      <CustomSelect handleSelectChange={handlePassengerChange} />
-      <button className="button blueBtn" onClick={searchFlights}>
-        Search
-      </button>
-      {showFlightList && (
-        <div>
-          {!!flightData.length && (
-            <MainFlightData
-              numOfPassenger={numOfPassenger}
-              flightData={flightData}
-              toggleSubFlight={toggleSubFlight}
-              origin={originCity}
-              destination={destinationCity}
-              journeyDate={journeyDateObj}
-            />
-          )}
-          {!!returnFlightData.length && (
-            <MainFlightData
-              origin={destinationCity}
-              destination={originCity}
-              numOfPassenger={numOfPassenger}
-              isReturnFlight={!isOneWayFlight}
-              flightData={returnFlightData}
-              toggleSubFlight={toggleSubFlight}
-              journeyDate={returnDateObj}
-            />
-          )}
-        </div>
-      )}
+        {!isOneWayFlight && (
+          <DatePickerInput
+            minDate={journeyDateObj}
+            startDate={returnDateObj}
+            handleDateChange={handleDateChange}
+          />
+        )}
+        <CustomSelect
+          passengerData={PASSENGER_DATA}
+          numOfPassenger={numOfPassenger}
+          handleSelectChange={handlePassengerChange}
+        />
+        <PriceFilter
+          priceRange={priceRange}
+          handlePriceChange={handlePriceChange}
+        />
+        <button className="button blueBtn" onClick={searchFlights}>
+          Search
+        </button>
+        {showFlightList.oneWay && (
+          <MainFlightData
+            flightData={flightData}
+            origin={originCity}
+            destination={destinationCity}
+            toggleSubFlight={toggleSubFlight}
+            journeyDate={journeyDateObj}
+          />
+        )}
+        {showFlightList.return && (
+          <MainFlightData
+            flightData={returnFlightData}
+            origin={destinationCity}
+            destination={originCity}
+            toggleSubFlight={toggleSubFlight}
+            journeyDate={returnDateObj}
+            isReturnFlight={true}
+          />
+        )}
+      </LoadingOverlay>
     </div>
   );
 };

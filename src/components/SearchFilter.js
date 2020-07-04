@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Select from "react-select";
-import { CITY_NAMES } from "../constants/default";
 
 const SearchFilter = ({
   cityData,
@@ -10,6 +9,7 @@ const SearchFilter = ({
 }) => {
   return (
     <Select
+      className="customSelect"
       placeholder={`Enter ${
         flightType === "oneWay" ? "Origin" : "Destination"
       } City`}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // CSS Modules, react-datepicker-cssmodules.css
@@ -13,15 +13,14 @@ const DatePickerInput = ({
   minDate
 }) => {
   const datepicker = useRef();
-
   return (
     <div className="datePickerWrapper">
       <DatePicker
-        utcOffset={0}
         selected={startDate}
         onChange={date => handleDateChange(date, flightType)}
         ref={datepicker}
         minDate={minDate ? minDate : new Date()}
+        strictParsing
         placeholderText={`${
           flightType === "oneWay" ? "Departure" : "Return"
         } Date`}

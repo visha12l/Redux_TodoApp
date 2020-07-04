@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
-const CustomSelect = ({ handleSelectChange }) => {
-  const [options, setOptions] = useState([]);
-
-  useEffect(() => {
-    const newOption = [];
-    for (let i = 0; i < 10; i++) {
-      newOption.push({ value: i + 1, label: i + 1 });
-    }
-    setOptions(newOption);
-  }, []);
-
+const CustomSelect = ({
+  passengerData,
+  numOfPassenger,
+  handleSelectChange
+}) => {
   return (
     <Select
+      className="customSelect"
       placeholder="Select Passengers"
       onChange={handleSelectChange}
+      isSearchable={false}
       components={{
-        IndicatorSeparator: () => null,
-        DropdownIndicator: () => null
+        IndicatorSeparator: () => null
       }}
-      options={options}
+      value={passengerData.filter(({ value }) => value === numOfPassenger)}
+      options={passengerData}
     />
   );
 };
