@@ -1,3 +1,5 @@
+import { DAYS, MONTHS } from "../constants/default";
+
 export const getTotalMinutes = timeString => {
   return (
     Number(timeString.split(":")[0] * 60) + Number(timeString.split(":")[1])
@@ -35,8 +37,6 @@ export const getFlightData = (
           getTotalMinutes(destinationCityFlight[j].departureTime) -
           getTotalMinutes(originCityFlight[i].arrivalTime);
 
-        // first flight reaching time
-        // second time start time
         if (layOverTime > 30) {
           newFlights.push({
             arrivalTime: destinationCityFlight[j].arrivalTime,
@@ -66,16 +66,6 @@ export const parseDate = date => {
   return `${date.getFullYear()}/${month}/${newDate}`;
 };
 
-/** utitlity function to convert date string to date object format */
-
-export const convertDate = startDate => {
-  if (startDate) {
-    const dateString = startDate.split("/");
-    return new Date(dateString[0], dateString[1] - 1, dateString[2]);
-  }
-  return null;
-};
-
 export const convertTime = userMinutes => {
   const hours = userMinutes / 60;
   let rhours = Math.floor(hours);
@@ -93,4 +83,10 @@ export const getFlightDuration = (departureTime, arrivalTime) => {
   const timeDifference =
     getTotalMinutes(arrivalTime) - getTotalMinutes(departureTime);
   return convertTime(timeDifference);
+};
+
+export const formatDateString = date => {
+  const day = DAYS[date.getDay()];
+  const month = MONTHS[date.getMonth()];
+  return `${day.slice(0, 3)}, ${date.getDate()} ${month} `;
 };

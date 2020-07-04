@@ -10,10 +10,8 @@ import DatePickerInput from "./DatePickerInput";
 // create left form with validation
 // TODO Calculate time difference
 // dont consider multiple airlines if time is less than 30 minutes
-// Flight Header Count and date info
+// Flight Header date Conversion info
 // Add price FIlter
-// price should be multiplied by number of passengers defaults to 1
-// test for all possible routes
 // make app responsive
 //
 // need one state to preserve initial data write useEffect to fetch data from API
@@ -32,7 +30,9 @@ const FlightApp = () => {
     journeyDate,
     returnDate,
     numOfPassenger,
-    isOneWayFlight
+    isOneWayFlight,
+    journeyDateObj,
+    returnDateObj
   } = userInput;
 
   const fetchJson = async url => {
@@ -97,7 +97,11 @@ const FlightApp = () => {
 
   const handleDateChange = (date, flightType) => {
     const keyName = flightType === "oneWay" ? "journeyDate" : "returnDate";
-    setUserInput({ ...userInput, [keyName]: parseDate(date) });
+    setUserInput({
+      ...userInput,
+      [keyName]: parseDate(date),
+      [`${keyName}Obj`]: date
+    });
   };
 
   const handlePassengerChange = selectedOption => {
@@ -121,12 +125,13 @@ const FlightApp = () => {
       />
       <DatePickerInput
         flightType="oneWay"
-        startDate={journeyDate}
+        startDate={journeyDateObj}
         handleDateChange={handleDateChange}
       />
       {!isOneWayFlight && (
         <DatePickerInput
-          startDate={returnDate}
+          minDate={journeyDateObj}
+          startDate={returnDateObj}
           handleDateChange={handleDateChange}
         />
       )}
@@ -143,6 +148,7 @@ const FlightApp = () => {
               toggleSubFlight={toggleSubFlight}
               origin={originCity}
               destination={destinationCity}
+              journeyDate={journeyDateObj}
             />
           )}
           {!!returnFlightData.length && (
@@ -153,6 +159,7 @@ const FlightApp = () => {
               isReturnFlight={!isOneWayFlight}
               flightData={returnFlightData}
               toggleSubFlight={toggleSubFlight}
+              journeyDate={returnDateObj}
             />
           )}
         </div>

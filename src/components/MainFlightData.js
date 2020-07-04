@@ -1,14 +1,17 @@
 import React from "react";
 import SubFlight from "./SubFlight";
-import { getFlightDuration, convertTime } from "../utils/utils";
+import {
+  getFlightDuration,
+  convertTime,
+  formatDateString
+} from "../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlane,
   faSms,
-  faPlaneDeparture
+  faPlaneDeparture,
+  faPlaneArrival
 } from "@fortawesome/free-solid-svg-icons";
-
-//TOOD convertDate
 
 const MainFlightData = ({
   flightData,
@@ -16,12 +19,15 @@ const MainFlightData = ({
   isReturnFlight,
   numOfPassenger,
   origin,
-  destination
+  destination,
+  journeyDate
 }) => {
   return (
     <div>
       <div className="flightStats">
-        <FontAwesomeIcon icon={faPlaneDeparture} />
+        <FontAwesomeIcon
+          icon={isReturnFlight ? faPlaneArrival : faPlaneDeparture}
+        />
         <div>
           <h3>
             {origin} to {destination}
@@ -30,7 +36,7 @@ const MainFlightData = ({
             <span>
               {flightData.length} flight{flightData.length > 1 ? "s" : ""} found
             </span>
-            <span> convertDate</span>
+            <span> {formatDateString(journeyDate)}</span>
           </p>
         </div>
       </div>

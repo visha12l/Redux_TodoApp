@@ -356,3 +356,28 @@ export const CITY_NAMES = [
   { value: "Bengaluru (BLR)", label: "Bengaluru (BLR)" },
   { value: "Pune (PNQ)", label: "Pune (PNQ)" }
 ];
+
+export const DAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
+
+export const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
