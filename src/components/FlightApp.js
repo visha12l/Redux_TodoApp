@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../stylesheet/flight.css";
+import "../stylesheet/flightList.css";
 import {
   Data,
   DEFAULT_USER_STATE,

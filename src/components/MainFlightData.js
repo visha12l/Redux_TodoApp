@@ -5,13 +5,10 @@ import {
   convertTime,
   formatDateString
 } from "../utils/utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlane,
-  faSms,
-  faPlaneDeparture,
-  faPlaneArrival
-} from "@fortawesome/free-solid-svg-icons";
+
+import directFlightIcon from "../Images/directFlight.png";
+import mulipleFlightIcon from "../Images/mulipleFlight.png";
+import planeIcon from "../Images/returnPlane.png";
 
 const MainFlightData = ({
   flightData,
@@ -22,18 +19,22 @@ const MainFlightData = ({
   journeyDate
 }) => {
   return (
-    <div>
+    <div className="mainFlightList">
       {!!flightData.length ? (
         <div>
           <div className="flightStats">
-            <FontAwesomeIcon
-              icon={isReturnFlight ? faPlaneArrival : faPlaneDeparture}
-            />
+            <div className="imgWrapper">
+              <img
+                className={isReturnFlight ? "returnIcon" : "planeIcon"}
+                src={planeIcon}
+                alt="placeIcon"
+              />
+            </div>
             <div>
               <h3>
                 {origin} to {destination}
               </h3>
-              <p>
+              <p className="subInfo">
                 <span>
                   {flightData.length} flight{flightData.length > 1 ? "s" : ""}{" "}
                   found
@@ -42,7 +43,7 @@ const MainFlightData = ({
               </p>
             </div>
           </div>
-          <ul>
+          <ul className="mainFlightListing">
             {flightData.map((flight, key) => {
               const {
                 isMultiLine,
@@ -60,13 +61,17 @@ const MainFlightData = ({
               return (
                 <li key={key}>
                   <div className="imgWrapper">
-                    <FontAwesomeIcon icon={isMultiLine ? faPlane : faSms} />
+                    <img
+                      src={isMultiLine ? mulipleFlightIcon : directFlightIcon}
+                      alt="placeIcon"
+                    />
                   </div>
                   <div className="listInner">
                     <h2>{isMultiLine ? "Multiple" : name}</h2>
                     {isMultiLine ? (
                       <a
                         href="#"
+                        className="detailsAnchor"
                         onClick={e => {
                           e.preventDefault();
                           toggleSubFlight(key, flightData, isReturnFlight);
@@ -75,7 +80,7 @@ const MainFlightData = ({
                         {showSubFlights ? "Hide" : "Show"} Details
                       </a>
                     ) : (
-                      <a>{flightNo}</a>
+                      <span>{flightNo}</span>
                     )}
                   </div>
                   <div className="listInner">
@@ -93,7 +98,7 @@ const MainFlightData = ({
                     <span>{isMultiLine ? "Total Duration" : "Non Stop"}</span>
                   </div>
                   <div className="listInner">
-                    <h2>RS:: {price}</h2>
+                    <h2 className="price">&#8377; {price}</h2>
                   </div>
                   <div className="listInner">
                     <button className="button">Book</button>
