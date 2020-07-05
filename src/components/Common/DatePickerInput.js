@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
-import calendarIcon from "../Images/calendar.png";
+import calendarIcon from "../../Images/calendar.png";
 
 const DatePickerInput = ({
   flightType,

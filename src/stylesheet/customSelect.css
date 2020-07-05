@@ -1,0 +1,24 @@
+/* //Custom CSS for Select Tag */
+
+.customSelect {
+  margin: 20px 0;
+}
+
+.customSelect .css-g1d714-ValueContainer,
+.customSelect .css-9gakcf-option,
+.customSelect .css-1n7v3ny-option,
+.customSelect .css-tlfecz-indicatorContainer,
+.customSelect .css-yk16xz-control :focus,
+.customSelect .css-yk16xz-control:hover {
+  cursor: pointer;
+}
+
+.customSelect .css-yk16xz-control {
+  cursor: pointer;
+  border: 1px solid gray;
+}
+
+.customSelect .css-tlfecz-indicatorContainer,
+.customSelect .css-tlfecz-indicatorContainer:hover {
+  color: #191919;
+}

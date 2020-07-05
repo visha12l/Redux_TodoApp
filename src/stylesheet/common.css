@@ -1,0 +1,110 @@
+/* // common css */
+
+.mainHeading {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px auto;
+}
+
+.green {
+  color: #83a974;
+}
+
+.button {
+  width: 80px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #be635b;
+  opacity: 1;
+  transition: all 1s linear;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.blueBtn {
+  width: 100px;
+  background-color: #3b7ccc;
+  color: #fff;
+  border: 1px solid #3b7ccc;
+}
+
+/* Tab CSS */
+.tab {
+  width: 22%;
+  border: 1px solid #757575;
+  border-radius: 3px;
+  border-bottom: none;
+}
+
+.tab .button {
+  background-color: #fff;
+  color: #757575;
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #757575;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.tab .active {
+  color: #fff;
+  background-color: #549be4;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.imgWrapper {
+  display: flex;
+  height: 50px;
+  align-items: center;
+}
+
+.planeIcon {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.userForm {
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.flightFiltetWrap {
+  width: 25%;
+  border: 2px solid #757575;
+  padding: 0 6px 10px;
+}
+
+.flightInfo {
+  margin: 0 20px;
+}
+
+.flightInfo h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
