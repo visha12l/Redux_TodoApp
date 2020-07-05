@@ -1,0 +1,27 @@
+/* price Filter component CSS*/
+
+.priceFilter {
+  margin: 30px 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.priceFilter h5 {
+  text-align: left;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.priceFilter .input-range {
+  width: 70%;
+  margin: 20px auto 20px 12px;
+}
+
+.priceFilter .input-range__slider {
+  background-color: #549be4;
+  border: 1px solid #549be4;
+}
+
+.priceFilter .input-range__track--active {
+  background: #549be4;
+}

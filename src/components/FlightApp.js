@@ -1,42 +1,30 @@
 import React, { useState, useEffect } from "react";
-import "../stylesheet/flight.css";
+import "../stylesheet/common.css";
+import "../stylesheet/customSelect.css";
+import "../stylesheet/priceFilter.css";
+import "../stylesheet/datePicker.css";
 import "../stylesheet/flightList.css";
-import {
-  Data,
-  DEFAULT_USER_STATE,
-  DEFAULT_DUMMY_USER_STATE,
-  PASSENGER_DATA
-} from "../constants/default";
+
+import { DEFAULT_USER_STATE, PASSENGER_DATA } from "../constants/default";
 import MainFlightData from "./MainFlightData";
 import { getFlightData, parseDate } from "../utils/utils";
-import Tab from "./Tab";
-import SearchFilter from "./SearchFilter";
-import CustomSelect from "./CustomSelect";
-import DatePickerInput from "./DatePickerInput";
-import PriceFilter from "./PriceFilter";
+import Tab from "./Common/Tab";
+import SearchFilter from "./Common/SearchFilter";
+import CustomSelect from "./Common/CustomSelect";
+import DatePickerInput from "./Common/DatePickerInput";
+import PriceFilter from "./Common/PriceFilter";
 import { fetchFlightData } from "../services/flightService";
 import LoadingOverlay from "react-loading-overlay";
 import GridLoader from "react-spinners/GridLoader";
 
-// CSS PART
 // use scss
 // make app responsive
-// check all colors and icons
 
 // create common Folder For common components
 // solve Eslint Warnings
 
-// create left form with validation
-
 // user Should not be able to select return date previous to current jouneny date
 // search button should be enabled after all validation are passed
-
-// const CITY_NAMES = [
-//   { value: "Mumbai (BOM)", label: "Mumbai (BOM)" },
-//   { value: "Delhi (DEL)", label: "Delhi (DEL)" },
-//   { value: "Bengaluru (BLR)", label: "Bengaluru (BLR)" },
-//   { value: "Pune (PNQ)", label: "Pune (PNQ)" }
-// ];
 
 const FlightApp = () => {
   const [apiData, setApiData] = useState([]);
