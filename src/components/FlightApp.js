@@ -8,6 +8,7 @@ import "../stylesheet/flightList.css";
 import { DEFAULT_USER_STATE, PASSENGER_DATA } from "../constants/default";
 import MainFlightData from "./MainFlightData";
 import { getFlightData, parseDate } from "../utils/utils";
+import Header from "./Common/Header.js";
 import Tab from "./Common/Tab";
 import SearchFilter from "./Common/SearchFilter";
 import CustomSelect from "./Common/CustomSelect";
@@ -67,7 +68,7 @@ const FlightApp = () => {
       return {
         ...item,
         showSubFlights:
-          flightKey === key ? !item.showFlightList : item.showFlightList
+          flightKey === key ? !item.showSubFlights : item.showSubFlights
       };
     });
     isReturnFlight
@@ -131,82 +132,96 @@ const FlightApp = () => {
   };
 
   return (
-    <div className="userForm">
-      <LoadingOverlay
-        styles={{
-          overlay: base => ({
-            ...base,
-            background: "rgb(7, 176, 227)"
-          })
-        }}
-        active={showLoader}
-        spinner={<GridLoader />}
-      >
-        <h1 className="mainHeading">Flight Search App</h1>
-        <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
-        <div className="flightFiltetWrap">
-          <SearchFilter
-            cityData={cityData}
-            selectedCity={originCity}
-            excludedCity={destinationCity}
-            handleSelectChange={handleCityChange}
-            flightType="oneWay"
-          />
-          <SearchFilter
-            cityData={cityData}
-            selectedCity={destinationCity}
-            excludedCity={originCity}
-            handleSelectChange={handleCityChange}
-          />
-          <DatePickerInput
-            flightType="oneWay"
-            startDate={journeyDateObj}
-            handleDateChange={handleDateChange}
-          />
-          {!isOneWayFlight && (
-            <DatePickerInput
-              minDate={journeyDateObj}
-              startDate={returnDateObj}
-              handleDateChange={handleDateChange}
+    <div>
+      <Header />
+      <div className="userForm">
+        <LoadingOverlay
+          styles={{
+            overlay: base => ({
+              ...base,
+              background: "rgb(7, 176, 227)"
+            })
+          }}
+          active={showLoader}
+          spinner={<GridLoader />}
+        >
+          <h1 className="mainHeading">Flight Search App</h1>
+          <div className="mainAppWrapper">
+            <div
+              className={`flightFilterWrapper ${
+                flightData.length > 0 && "displayFlex"
+              }`}
+            >
+              <Tab
+                isOneWayFlight={isOneWayFlight}
+                changeTab={handleChangeTab}
+              />
+              <div className="flightFilterWrap">
+                <SearchFilter
+                  cityData={cityData}
+                  selectedCity={originCity}
+                  excludedCity={destinationCity}
+                  handleSelectChange={handleCityChange}
+                  flightType="oneWay"
+                />
+                <SearchFilter
+                  cityData={cityData}
+                  selectedCity={destinationCity}
+                  excludedCity={originCity}
+                  handleSelectChange={handleCityChange}
+                />
+                <DatePickerInput
+                  flightType="oneWay"
+                  startDate={journeyDateObj}
+                  handleDateChange={handleDateChange}
+                />
+                {!isOneWayFlight && (
+                  <DatePickerInput
+                    minDate={journeyDateObj}
+                    startDate={returnDateObj}
+                    handleDateChange={handleDateChange}
+                  />
+                )}
+                <CustomSelect
+                  passengerData={PASSENGER_DATA}
+                  numOfPassenger={numOfPassenger}
+                  handleSelectChange={handlePassengerChange}
+                />
+                <PriceFilter
+                  priceRange={priceRange}
+                  handlePriceChange={handlePriceChange}
+                />
+                <button
+                  disabled={!isValidSearch()}
+                  className="button blueBtn"
+                  onClick={searchFlights}
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+            {showFlightList.oneWay && (
+              <MainFlightData
+                flightData={flightData}
+                origin={originCity}
+                destination={destinationCity}
+                toggleSubFlight={toggleSubFlight}
+                journeyDate={journeyDateObj}
+              />
+            )}
+          </div>
+          {showFlightList.return && (
+            <MainFlightData
+              flightData={returnFlightData}
+              origin={destinationCity}
+              destination={originCity}
+              toggleSubFlight={toggleSubFlight}
+              journeyDate={returnDateObj}
+              isReturnFlight={showFlightList.return}
             />
           )}
-          <CustomSelect
-            passengerData={PASSENGER_DATA}
-            numOfPassenger={numOfPassenger}
-            handleSelectChange={handlePassengerChange}
-          />
-          <PriceFilter
-            priceRange={priceRange}
-            handlePriceChange={handlePriceChange}
-          />
-          <button
-            disabled={!isValidSearch()}
-            className="button blueBtn"
-            onClick={searchFlights}
-          >
-            Search
-          </button>
-        </div>
-        {showFlightList.oneWay && (
-          <MainFlightData
-            flightData={flightData}
-            origin={originCity}
-            destination={destinationCity}
-            toggleSubFlight={toggleSubFlight}
-            journeyDate={journeyDateObj}
-          />
-        )}
-        {showFlightList.return && (
-          <MainFlightData
-            flightData={returnFlightData}
-            origin={destinationCity}
-            destination={originCity}
-            toggleSubFlight={toggleSubFlight}
-            journeyDate={returnDateObj}
-            isReturnFlight={showFlightList.return}
-          />
-        )}
-      </LoadingOverlay>
+        </LoadingOverlay>
+      </div>
     </div>
   );
 };

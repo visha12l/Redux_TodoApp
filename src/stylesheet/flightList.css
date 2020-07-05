@@ -26,14 +26,20 @@
 }
 
 /* Main Flight list */
+.mainFlightList {
+  border: 1px solid #575757;
+  padding: 5px 8px;
+}
 
 .mainFlightListing li {
   border: 1px solid #575757;
   padding: 20px 10px;
+  justify-content: space-around;
 }
 
 .mainFlightListing>li {
   margin: 10px 0;
+  width: 98%;
 }
 
 .mainFlightListing .price {
@@ -65,6 +71,16 @@
 
 .subFlightList li {
   background: #f5f4f6;
+  justify-content: flex-start;
+}
+
+.subFlightList li:first-child {
+  position: relative;
+  border-bottom: 1.5px dotted #575757;
+}
+
+.subFlightList li:nth-child(2) {
+  border-top: 1.5px dotted #575757;
 }
 
 .subFlightList .planeImg {
@@ -78,4 +94,12 @@
   border: 2px dotted #575757;
   font-size: 16px;
   padding: 8px;
+  position: absolute;
+  bottom: -18px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 160px;
 }

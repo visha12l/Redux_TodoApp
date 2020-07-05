@@ -3,7 +3,8 @@
 .mainHeading {
   font-size: 30px;
   font-weight: bold;
-  margin: 10px auto;
+  padding: 10px 0 10px 4px;
+  border-bottom: 1px solid #575757;
 }
 
 .green {
@@ -36,9 +37,26 @@
   border: 1px solid #3b7ccc;
 }
 
+.flexOne {
+  flex: 1
+}
+
+.flexThree {
+  flex: 3
+}
+
+.header {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 16px 0;
+  background-color: #424242;
+  color: #eee;
+  text-align: center;
+}
+
 /* Tab CSS */
 .tab {
-  width: 22%;
+  width: 90%;
   border: 1px solid #757575;
   border-radius: 3px;
   border-bottom: none;
@@ -91,11 +109,26 @@ ul li {
 .userForm {
   margin: 0 auto;
   width: 1200px;
+  border: 1px solid #575757;
 }
 
-.flightFiltetWrap {
+.mainAppWrapper {
+  display: flex;
+}
+
+.flightFilterWrapper {
+  border-right: 1px solid #557755;
+  padding: 20px 5px 0 0;
   width: 25%;
-  border: 2px solid #757575;
+}
+
+.displayFlex {
+  flex: 1;
+  width: auto;
+}
+
+.flightFilterWrap {
+  border: 1px solid #757575;
   padding: 0 6px 10px;
 }
 

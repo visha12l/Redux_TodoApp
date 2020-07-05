@@ -13,22 +13,22 @@ const SubFlight = ({ index, subFlight, layOverTime }) => {
   } = subFlight;
   return (
     <li>
-      <div className="imgWrapper">
+      <div className="imgWrapper flexOne">
         <img className="planeImg" src={directFlightIcon} alt="planeIcon" />
       </div>
-      <div className="flightInfo">
+      <div className="flightInfo flexOne">
         <h2>{name}</h2>
         <span>{flightNo}</span>
       </div>
-      <div className="flightInfo">
+      <div className="flightInfo flexOne">
         <h2>{departureTime}</h2>
         <span>{origin}</span>
       </div>
-      <div className="flightInfo">
+      <div className="flightInfo flexOne">
         <h2>{arrivalTime}</h2>
         <span>{destination}</span>
       </div>
-      <div className="flightInfo">
+      <div className="flightInfo flexThree">
         <h2>{getFlightDuration(departureTime, arrivalTime)}</h2>
       </div>
       {index === 0 && (
