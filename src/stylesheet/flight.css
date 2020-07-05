@@ -1,3 +1,10 @@
+.mainHeading {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px auto;
+}
+
+
 .userForm {
   margin: 0 auto;
   width: 1000px;
@@ -69,22 +76,23 @@ ul li {
   flex-direction: row;
   justify-content: flex-start;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #6C6C6C;
   flex-wrap: wrap;
   margin: 20px 0 0;
   padding: 0;
   position: relative;
-  width: 20%;
   cursor: pointer;
 }
 
 .datePickerWrapper .react-datepicker-wrapper {
-  margin-right: 10px;
+  margin-right: 14px;
   padding: 7px 0 7px 7px;
-  border: 1px solid black;
+  border-right: 1px solid #6C6C6C;
+  width: 80%;
 }
 
 .datePickerWrapper .datePicker {
+  font-size: 14px;
   border: none;
 }
 
@@ -94,14 +102,11 @@ ul li {
 }
 
 
-
 .datePickerWrapper .calender {
-  border-left: 1px solid black;
+  border-left: 1px solid #6C6C6C;
   position: absolute;
   right: 0;
 }
-
-
 
 /* // common css */
 
@@ -124,9 +129,6 @@ ul li {
 
 
 .button:disabled {
-  background-color: #0808fc;
-  border: 1px solid black;
-  color: black;
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
@@ -134,15 +136,25 @@ ul li {
 
 .blueBtn {
   width: 100px;
-  background-color: blue;
+  background-color: #3B7CCC;
+  color: #fff;
+  border: 1px solid #3B7CCC;
 }
 
 
 /* Tab CSS */
+.tab {
+  width: 23%;
+  border: 1px solid #6C6C6C;
+  border-radius: 2px;
+  border-bottom: none;
+}
 
 .tab .button {
   background-color: #fff;
-  color: black;
+  color: #6C6C6C;
+  width: 50%;
+  border-radius: 0;
 }
 
 .tab .active {
@@ -151,7 +163,16 @@ ul li {
 }
 
 
+/* class="flightFiltetWrap" */
+
+.flightFiltetWrap {
+  width: 25%;
+  border: 2px solid#6C6C6C;
+  padding: 0 6px 10px;
+}
+
 /* //Flight Stats  */
+
 .flightStats {
   display: flex;
   align-items: center;
@@ -163,14 +184,7 @@ ul li {
 .priceFilter {
   margin: 30px 0;
   padding: 10px;
-  width: 50%;
   text-align: center;
-  border: 1px solid grey;
-}
-
-.priceFilter .input-range {
-  width: 70%;
-  margin: 20px auto;
 }
 
 .priceFilter h5 {
@@ -178,11 +192,23 @@ ul li {
   margin-bottom: 30px;
 }
 
+.priceFilter .input-range {
+  width: 70%;
+  margin: 20px auto 20px 12px;
+}
+
+.priceFilter .input-range__slider {
+  background: blue;
+  border: 1px solid blue;
+}
+
+.priceFilter .input-range__track--active {
+  background: blue;
+}
 
 /* SELCT TAGS */
 
 .customSelect {
-  width: 20%;
   margin: 20px 0;
 }
 
