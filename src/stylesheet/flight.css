@@ -130,12 +130,12 @@
 }
 
 .priceFilter .input-range__slider {
-  background: blue;
-  border: 1px solid blue;
+  background-color: #549be4;
+  border: 1px solid #549be4;
 }
 
 .priceFilter .input-range__track--active {
-  background: blue;
+  background: #549be4;
 }
 
 /* SELCT TAGS */
