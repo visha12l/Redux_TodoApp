@@ -1,0 +1,94 @@
+ul {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.imgWrapper {
+  display: flex;
+  height: 50px;
+  align-items: center;
+}
+
+.planeIcon {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.listInner {
+  margin: 0 20px;
+}
+
+.listInner h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.showInner {
+  border-top: 1px solid #ccc;
+  display: flex;
+  width: 100%;
+  order: 1;
+  flex: 1 0 100%;
+}
+
+.showInner ul {
+  flex-wrap: wrap;
+}
+
+/* //Flight Stats  */
+
+.flightStats {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.flightStats h3 {
+  color: #444444;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.flightStats .subInfo {
+  color: #757575;
+}
+
+.flightStats .imgWrapper {
+  margin-right: 6px;
+}
+
+.flightStats .planeIcon {
+  transform: rotate(180deg);
+}
+
+.mainFlightListing > li {
+  border: 1px solid #575757;
+  padding: 20px 10px;
+}
+
+.mainFlightListing .price {
+  color: #d07056;
+}
+
+.mainFlightListing .detailsAnchor {
+  color: #6272e7;
+}
+
+.mainFlightListing .listInner span {
+  color: #575757;
+}
