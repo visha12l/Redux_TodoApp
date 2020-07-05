@@ -14,7 +14,7 @@ const SubFlight = ({ index, subFlight, layOverTime }) => {
   return (
     <li>
       <div className="imgWrapper">
-        <img className="planeImg" src={directFlightIcon} alt="placeIcon" />
+        <img className="planeImg" src={directFlightIcon} alt="planeIcon" />
       </div>
       <div className="flightInfo">
         <h2>{name}</h2>

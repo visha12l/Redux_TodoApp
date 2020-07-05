@@ -27,7 +27,7 @@ const MainFlightData = ({
               <img
                 className={isReturnFlight ? "returnIcon" : "planeIcon"}
                 src={planeIcon}
-                alt="placeIcon"
+                alt="planeIcon"
               />
             </div>
             <div>
@@ -63,7 +63,7 @@ const MainFlightData = ({
                   <div className="imgWrapper">
                     <img
                       src={isMultiLine ? mulipleFlightIcon : directFlightIcon}
-                      alt="placeIcon"
+                      alt="planeIcon"
                     />
                   </div>
                   <div className="flightInfo">
