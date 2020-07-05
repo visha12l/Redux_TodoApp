@@ -66,7 +66,7 @@ const MainFlightData = ({
                       alt="placeIcon"
                     />
                   </div>
-                  <div className="listInner">
+                  <div className="flightInfo">
                     <h2>{isMultiLine ? "Multiple" : name}</h2>
                     {isMultiLine ? (
                       <a
@@ -83,32 +83,38 @@ const MainFlightData = ({
                       <span>{flightNo}</span>
                     )}
                   </div>
-                  <div className="listInner">
+                  <div className="flightInfo">
                     <h2>{departureTime}</h2>
                     <span>{origin}</span>
                   </div>
-                  <div className="listInner">
+                  <div className="flightInfo">
                     <h2>{arrivalTime}</h2>
                     <span>{destination}</span>
                   </div>
-                  <div className="listInner">
+                  <div className="flightInfo">
                     <h2 className={isMultiLine && "green"}>
                       {getFlightDuration(departureTime, arrivalTime)}
                     </h2>
                     <span>{isMultiLine ? "Total Duration" : "Non Stop"}</span>
                   </div>
-                  <div className="listInner">
+                  <div className="flightInfo">
                     <h2 className="price">&#8377; {price}</h2>
                   </div>
-                  <div className="listInner">
+                  <div className="flightInfo">
                     <button className="button">Book</button>
                   </div>
                   {isMultiLine && showSubFlights && (
-                    <div>
-                      <p>LayOVer Time :: {convertTime(layOverTime)}</p>
+                    <div className="subFlightList">
                       <ul>
                         {subFlightData.map((subFlight, key) => {
-                          return <SubFlight key={key} subFlight={subFlight} />;
+                          return (
+                            <SubFlight
+                              key={key}
+                              index={key}
+                              subFlight={subFlight}
+                              layOverTime={layOverTime}
+                            />
+                          );
                         })}
                       </ul>
                     </div>

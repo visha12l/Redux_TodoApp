@@ -18,25 +18,14 @@ import { fetchFlightData } from "../services/flightService";
 import LoadingOverlay from "react-loading-overlay";
 import GridLoader from "react-spinners/GridLoader";
 
-// CSS PART
 // use scss
 // make app responsive
-// check all colors and icons
 
 // create common Folder For common components
 // solve Eslint Warnings
 
-// create left form with validation
-
 // user Should not be able to select return date previous to current jouneny date
 // search button should be enabled after all validation are passed
-
-// const CITY_NAMES = [
-//   { value: "Mumbai (BOM)", label: "Mumbai (BOM)" },
-//   { value: "Delhi (DEL)", label: "Delhi (DEL)" },
-//   { value: "Bengaluru (BLR)", label: "Bengaluru (BLR)" },
-//   { value: "Pune (PNQ)", label: "Pune (PNQ)" }
-// ];
 
 const FlightApp = () => {
   const [apiData, setApiData] = useState([]);
