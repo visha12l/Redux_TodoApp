@@ -153,49 +153,51 @@ const FlightApp = () => {
         active={showLoader}
         spinner={<GridLoader />}
       >
-        <h1>Flight Search App</h1>
+        <h1 className="mainHeading">Flight Search App</h1>
         <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
-        <SearchFilter
-          cityData={cityData}
-          selectedCity={originCity}
-          excludedCity={destinationCity}
-          handleSelectChange={handleCityChange}
-          flightType="oneWay"
-        />
-        <SearchFilter
-          cityData={cityData}
-          selectedCity={destinationCity}
-          excludedCity={originCity}
-          handleSelectChange={handleCityChange}
-        />
-        <DatePickerInput
-          flightType="oneWay"
-          startDate={journeyDateObj}
-          handleDateChange={handleDateChange}
-        />
-        {!isOneWayFlight && (
+        <div className="flightFiltetWrap">
+          <SearchFilter
+            cityData={cityData}
+            selectedCity={originCity}
+            excludedCity={destinationCity}
+            handleSelectChange={handleCityChange}
+            flightType="oneWay"
+          />
+          <SearchFilter
+            cityData={cityData}
+            selectedCity={destinationCity}
+            excludedCity={originCity}
+            handleSelectChange={handleCityChange}
+          />
           <DatePickerInput
-            minDate={journeyDateObj}
-            startDate={returnDateObj}
+            flightType="oneWay"
+            startDate={journeyDateObj}
             handleDateChange={handleDateChange}
           />
-        )}
-        <CustomSelect
-          passengerData={PASSENGER_DATA}
-          numOfPassenger={numOfPassenger}
-          handleSelectChange={handlePassengerChange}
-        />
-        <PriceFilter
-          priceRange={priceRange}
-          handlePriceChange={handlePriceChange}
-        />
-        <button
-          disabled={!isValidSearch()}
-          className="button blueBtn"
-          onClick={searchFlights}
-        >
-          Search
-        </button>
+          {!isOneWayFlight && (
+            <DatePickerInput
+              minDate={journeyDateObj}
+              startDate={returnDateObj}
+              handleDateChange={handleDateChange}
+            />
+          )}
+          <CustomSelect
+            passengerData={PASSENGER_DATA}
+            numOfPassenger={numOfPassenger}
+            handleSelectChange={handlePassengerChange}
+          />
+          <PriceFilter
+            priceRange={priceRange}
+            handlePriceChange={handlePriceChange}
+          />
+          <button
+            disabled={!isValidSearch()}
+            className="button blueBtn"
+            onClick={searchFlights}
+          >
+            Search
+          </button>
+        </div>
         {showFlightList.oneWay && (
           <MainFlightData
             flightData={flightData}

@@ -7,7 +7,7 @@ const Tab = ({ isOneWayFlight, changeTab }) => {
         className={`button ${isOneWayFlight && "active"}`}
         onClick={() => changeTab(true)}
       >
-        one Way
+        One Way
       </button>
       <button
         className={`button ${!isOneWayFlight && "active"}`}
