@@ -23,7 +23,7 @@ const DatePickerInput = ({
           flightType === "oneWay" ? "Departure" : "Return"
         } Date`}
         dateFormat="yyyy/MM/dd"
-        className="datePicker form-control"
+        className="datePicker"
         showDisabledMonthNavigation
       />
       <img
