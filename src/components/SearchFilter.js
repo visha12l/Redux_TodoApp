@@ -3,9 +3,10 @@ import Select from "react-select";
 
 const SearchFilter = ({
   cityData,
+  excludedCity,
+  selectedCity,
   flightType,
-  handleSelectChange,
-  excludedCity
+  handleSelectChange
 }) => {
   return (
     <Select
@@ -21,6 +22,7 @@ const SearchFilter = ({
         IndicatorSeparator: () => null,
         DropdownIndicator: () => null
       }}
+      value={cityData.filter(({ value }) => value === selectedCity)}
       options={cityData.filter(city => city.value !== excludedCity)}
     />
   );

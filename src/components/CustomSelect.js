@@ -11,7 +11,7 @@ const CustomSelect = ({
       className="customSelect"
       placeholder="Select Passengers"
       onChange={handleSelectChange}
-      isSearchable={false}
+      isClearable={true}
       components={{
         IndicatorSeparator: () => null
       }}

@@ -118,6 +118,18 @@ ul li {
   cursor: pointer;
   color: #fff;
   background-color: #cc404e;
+  opacity: 1;
+  transition: all 1s linear;
+}
+
+
+.button:disabled {
+  background-color: #0808fc;
+  border: 1px solid black;
+  color: black;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .blueBtn {
@@ -177,7 +189,10 @@ ul li {
 
 /* //Custom CSS for Select Tag */
 
-.customSelect .css-g1d714-ValueContainer {
+.customSelect .css-g1d714-ValueContainer,
+.customSelect .css-9gakcf-option,
+.customSelect .css-1n7v3ny-option,
+.customSelect .css-tlfecz-indicatorContainer {
   cursor: pointer;
 }
 
@@ -190,47 +205,4 @@ ul li {
 .customSelect .css-yk16xz-control:hover {
   cursor: pointer;
   border: 1px solid gray;
-
 }
-
-
-.customSelect .css-9gakcf-option {
-  cursor: pointer;
-}
-
-.customSelect .css-1n7v3ny-option {
-  cursor: pointer;
-
-}
-
-/* 
-.css-1pahdxg-control {
-  border: 1px solid $f-border-light-gray;
-  border-radius: 6px;
-  box-shadow: none;
-
-  &:focus,
-  &:active,
-  &:hover {
-    border: 1px solid $f-border-light-gray;
-    box-shadow: none;
-  }
-} */
-
-/* .css-26l3qy-menu {
-  box-shadow: 0 2px 4px 0 rgba(86, 90, 92, 0.3);
-  margin-top: 0;
-} */
-
-
-/* background: #f9f9f9;
-  color: $f-color-light-black; */
-
-/* &:active {
-    background: #f9f9f9;
-    color: $f-color-light-black;
-  }
-} */
-
-/* */
-/* */

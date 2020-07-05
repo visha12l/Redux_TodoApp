@@ -16,6 +16,7 @@ import PriceFilter from "./PriceFilter";
 import { fetchFlightData } from "../services/flightService";
 import LoadingOverlay from "react-loading-overlay";
 import GridLoader from "react-spinners/GridLoader";
+
 // CSS PART
 // use scss
 // make app responsive
@@ -25,12 +26,9 @@ import GridLoader from "react-spinners/GridLoader";
 // solve Eslint Warnings
 
 // create left form with validation
+
 // user Should not be able to select return date previous to current jouneny date
 // search button should be enabled after all validation are passed
-
-// add initial loader for application
-
-// show empty response messages
 
 // const CITY_NAMES = [
 //   { value: "Mumbai (BOM)", label: "Mumbai (BOM)" },
@@ -109,7 +107,10 @@ const FlightApp = () => {
 
   const handleCityChange = (selectedOption, flightType) => {
     const keyName = flightType === "oneWay" ? "originCity" : "destinationCity";
-    setUserInput({ ...userInput, [keyName]: selectedOption.value });
+    setUserInput({
+      ...userInput,
+      [keyName]: selectedOption === null ? "" : selectedOption.value
+    });
   };
 
   const handleDateChange = (date, flightType) => {
@@ -122,7 +123,22 @@ const FlightApp = () => {
   };
 
   const handlePassengerChange = selectedOption => {
-    setUserInput({ ...userInput, numOfPassenger: selectedOption.value });
+    setUserInput({
+      ...userInput,
+      numOfPassenger: selectedOption === null ? "" : selectedOption.value
+    });
+  };
+
+  const isValidSearch = () => {
+    let isValidReturnDate = !isOneWayFlight && returnDate === "" ? false : true;
+
+    return (
+      originCity !== "" &&
+      destinationCity !== "" &&
+      numOfPassenger !== "" &&
+      journeyDate !== "" &&
+      isValidReturnDate
+    );
   };
 
   return (
@@ -141,12 +157,14 @@ const FlightApp = () => {
         <Tab isOneWayFlight={isOneWayFlight} changeTab={handleChangeTab} />
         <SearchFilter
           cityData={cityData}
+          selectedCity={originCity}
           excludedCity={destinationCity}
           handleSelectChange={handleCityChange}
           flightType="oneWay"
         />
         <SearchFilter
           cityData={cityData}
+          selectedCity={destinationCity}
           excludedCity={originCity}
           handleSelectChange={handleCityChange}
         />
@@ -171,7 +189,11 @@ const FlightApp = () => {
           priceRange={priceRange}
           handlePriceChange={handlePriceChange}
         />
-        <button className="button blueBtn" onClick={searchFlights}>
+        <button
+          disabled={!isValidSearch()}
+          className="button blueBtn"
+          onClick={searchFlights}
+        >
           Search
         </button>
         {showFlightList.oneWay && (
@@ -190,7 +212,7 @@ const FlightApp = () => {
             destination={originCity}
             toggleSubFlight={toggleSubFlight}
             journeyDate={returnDateObj}
-            isReturnFlight={true}
+            isReturnFlight={showFlightList.return}
           />
         )}
       </LoadingOverlay>
