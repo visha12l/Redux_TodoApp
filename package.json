@@ -37,7 +37,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-preset-stage-1": "^6.1.18",
     "css-loader": "^3.6.0",
     "lodash": "^3.10.1",
