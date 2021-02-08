@@ -17,7 +17,7 @@ const DatePickerInput = ({
         selected={startDate}
         onChange={date => handleDateChange(date, flightType)}
         ref={datepicker}
-        minDate={minDate ? minDate : new Date()}
+        minDate={minDate}
         strictParsing
         placeholderText={`${
           flightType === "oneWay" ? "Departure" : "Return"
